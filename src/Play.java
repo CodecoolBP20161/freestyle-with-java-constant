@@ -57,7 +57,7 @@ public class Play {
         PostgreSQLConnection database = new PostgreSQLConnection();
         try {
             database.setConnection();
-            String sql = "DROP TABLE play";
+            String sql = "DROP TABLE IF EXISTS play";
             database.statement.executeUpdate(sql);
             database.closeConnection();
         } catch (SQLException e) {
