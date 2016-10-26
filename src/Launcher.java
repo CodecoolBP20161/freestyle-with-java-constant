@@ -1,8 +1,7 @@
 import java.util.ArrayList;
 
 public class Launcher {
-    public static void main( String args[] )
-    {
+    public static void main( String args[] ) throws Exception {
         ArrayList<Play> playList = Play.selectAll();
         for (Play p: playList)
             System.out.println(p.time);
