@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 public class Play {
     Integer id;
-    String time, title, director;
+    String time, title, place;
 
-    public Play(Integer id, String time, String title, String director){
+    public Play(Integer id, String time, String title, String place){
         this.id = id;
         this.time = time;
         this.title = title;
-        this.director = director;
+        this.place = place;
     }
 
     public static ArrayList selectAll() {
@@ -24,8 +24,8 @@ public class Play {
                 Integer id = rs.getInt("id");
                 String time = rs.getString("time");
                 String title = rs.getString("title");
-                String director = rs.getString("director");
-                playList.add(new Play(id, time, title, director));
+                String place = rs.getString("place");
+                playList.add(new Play(id, time, title, place));
             }
             rs.close();
             database.closeConnection();
@@ -42,10 +42,10 @@ public class Play {
         try {
             database.setConnection();
             String sql = "CREATE TABLE IF NOT EXISTS play " +
-                "(id INTEGER PRIMARY KEY , " +
+                "(id SERIAL PRIMARY KEY, " +
                 " time VARCHAR(100), " +
                 " title VARCHAR(100), " +
-                " director VARCHAR(100))";
+                " place VARCHAR(100))";
             database.statement.executeUpdate(sql);
             database.closeConnection();
         } catch (SQLException e) {
@@ -69,7 +69,7 @@ public class Play {
         PostgreSQLConnection database = new PostgreSQLConnection();
         try {
             database.setConnection();
-            String sql = String.format("INSERT INTO play VALUES ('%d','%s','%s','%s')", id, time, title, director);
+            String sql = String.format("INSERT INTO play (time, title, place) VALUES ('%s','%s','%s')", time, title, place);
             database.statement.executeUpdate(sql);
             database.closeConnection();
         } catch (SQLException e) {
