@@ -18,14 +18,14 @@ public class PostgreSQLConnection {
     public PostgreSQLConnection() {
         connection = null;
         statement = null;
-        jdbc = "jdbc:postgresql://localhost:5432/YOUR_DATABASENAME";
-        username = "YOUR_USERNAME";
-        password = "YOUR_PASSWORD";
+        jdbc = "jdbc:postgresql://localhost:5432/javasql";
+        username = "vbenedek";
+        password = "vbenedek";
     }
     // method to set statement
     public void setConnection() throws SQLException {
         connection = DriverManager.getConnection(jdbc, username, password);
-        connection.setAutoCommit(false);
+        connection.setAutoCommit(true);
         statement = connection.createStatement();
     }
     // method to close connection
