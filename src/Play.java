@@ -1,4 +1,5 @@
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Play {
@@ -34,6 +35,46 @@ public class Play {
             System.exit(0);
         }
         return playList;
+    }
+
+    public static void buildPlayTable() {
+        PostgreSQLConnection database = new PostgreSQLConnection();
+        try {
+            database.setConnection();
+            String sql = "CREATE TABLE IF NOT EXISTS play " +
+                "(id INTEGER PRIMARY KEY , " +
+                " time VARCHAR(100), " +
+                " title VARCHAR(100), " +
+                " director VARCHAR(100))";
+            database.statement.executeUpdate(sql);
+            database.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void dropPlayTable() {
+        PostgreSQLConnection database = new PostgreSQLConnection();
+        try {
+            database.setConnection();
+            String sql = "DROP TABLE play";
+            database.statement.executeUpdate(sql);
+            database.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertToTable() {
+        PostgreSQLConnection database = new PostgreSQLConnection();
+        try {
+            database.setConnection();
+            String sql = String.format("INSERT INTO play VALUES ('%d','%s','%s','%s')", id, time, title, director);
+            database.statement.executeUpdate(sql);
+            database.closeConnection();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }
